@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <!--{{2+2}}-->
+    
+    <div class="container" ng-controller="mainCtrl as main">
+       
+        <div class="form-group">
+            <label for="usr">Find:</label>
+            <input type="text" class="form-control" id="usr" ng-model="search">
+        </div>
+        
+        <table class="table">
+            <thead>
+                <th ng-click="main.sortType = 'firstName'; main.sortReverse = !main.sortReverse">First name</th>
+                <th ng-click="main.sortType = 'lastName'; main.sortReverse = !main.sortReverse">Last name</th>
+                <th ng-click="main.sortType = 'number'; main.sortReverse = !main.sortReverse">Number</th>
+                <th><input type="button" class="btn btn-primary" value="ADD" data-toggle="modal" data-target="#myModal"></th>
+            </thead>
+            
+            <tbody>
+                <tr ng-repeat="key in main.people | orderBy : main.sortType : main.sortReverse | filter : search">
+                    <td>{{key.firstName}}</td>
+                    <td>{{key.lastName}}</td>
+                    <td>{{key.number}}</td>
+                    <td>
+                        <input type="button" class="btn btn-success" value="CHANGE" data-toggle="modal" data-target="#myModal_2" ng-click="main.changeTask($index)">
+                        
+                        <input type="button" class="btn btn-danger" value="DELETE" ng-click="main.deleteTask($index)">
+                    </td>
+                </tr>
+                
+                
+            </tbody>
+        </table>
+        
+        <div class="modal fade" id="myModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <table class="table">
+                        <thead>
+                            <th>First name</th>
+                            <th>Last name</th>
+                            <th>Number</th>
+                        </thead>
+                        <tbody>
+                            <td><input type="text" class="form-control" id="fName" ng-model="newTask.firstName"></td>
+                            <td><input type="text" class="form-control" id="sName" ng-model="newTask.lastName"></td>
+                            <td><input type="text" class="form-control" id="number" ng-model="newTask.number"></td>
+                        </tbody>
+                    </table>
+                    <div class="modal-footer">
+                        <input type="button" class="btn btn-primary" value="ADD" data-dismiss="modal" ng-click="main.addTask(newTask)">
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+                <div class="modal fade" id="myModal_2">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <table class="table">
+                        <thead>
+                            <th>First name</th>
+                            <th>Last name</th>
+                            <th>Number</th>
+                        </thead>
+                        <tbody>
+                            <td><input type="text" class="form-control" ng-model="main.Ename"></td>
+                            <td><input type="text" class="form-control" ng-model="main.Esname"></td>
+                            <td><input type="text" class="form-control" ng-model="main.Enumber"></td>
+                        </tbody>
+                    </table>
+                    <div class="modal-footer">
+                        <input type="button" class="btn btn-primary" value="CHANGE" data-dismiss="modal" ng-click="main.change($index)">
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.2/angular.min.js"></script>
+    <script src="app/controllers/main.controller.js"></script>
+    <script src="app/app.js"></script>
+</body>
+</html>
